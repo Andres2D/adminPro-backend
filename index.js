@@ -15,16 +15,7 @@ app.use(cors());
 dbConnection();
 
 // Routes
-app.get( '/', (req, res) => {
-
-  res.status(400).json({
-    ok: true,
-    msg: 'Hello World'
-  });
-
-});
-
-
+app.use('/api/users', require('./routes/user'));
 
 app.listen( process.env.PORT, () => {
   console.log('Server runnig on port ' + process.env.PORT );
