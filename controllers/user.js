@@ -2,10 +2,18 @@
 const getUsers = (req, res) => {
     res.json({
         ok: true,
-        users: []
+        msg: 'Get users'
+    });
+}
+
+const createUsers = (req, res) => {
+    res.json({
+        ok: true,
+        msg: 'Creating user'
     });
 }
 
 module.exports = {
-    getUsers
+    getUsers,
+    createUsers
 }
