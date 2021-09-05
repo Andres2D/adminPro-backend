@@ -1,7 +1,13 @@
 # Admin Pro - Backend
 
-- Remeber run
+- Remember run
 
 ```
 npm install
+```
+
+## Also install
+nodemon
+```
+npm install -g nodemon
 ```
