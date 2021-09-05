@@ -2,7 +2,7 @@
     Route: /api/users
 */
 const { Router } = require('express');
-const { getUsers, createUsers, updateUser } = require('../controllers/user');
+const { getUsers, createUsers, updateUser, deleteUser } = require('../controllers/user');
 const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/validate-fields');
 
@@ -29,5 +29,7 @@ router.put( '/:id',
     ],
     updateUser
 );
+
+router.delete( '/:id', deleteUser );
 
 module.exports = router;

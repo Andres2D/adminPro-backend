@@ -47,8 +47,7 @@ const updateUser = async (req, res = response) => {
     // TODO: Validate token if is the correct user
     const _id = req.params.id;
     try {
-        const userDB = User.findById(_id);
-
+        const userDB = await User.findById(_id);
         if(!userDB) {
             return res.status(404).json({
                 ok: false,
@@ -85,8 +84,37 @@ const updateUser = async (req, res = response) => {
     }
 }
 
+const deleteUser = async(req, res = response) => {
+    const _id = req.params.id;
+
+    try {
+        const userDB = await User.findById(_id);
+        if(!userDB) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'User dont exist'
+            });
+        }
+
+        await User.findByIdAndDelete(_id);
+
+        res.json({
+            ok: true,
+            msg: 'Deleted user: ' + _id
+        });
+    } catch(ex) {
+        console.log(ex);
+        res.status(500).json({
+            ok: false,
+            msg: 'Unexpected error'
+        })
+    }
+    
+}
+
 module.exports = {
     getUsers,
     createUsers,
-    updateUser
+    updateUser,
+    deleteUser
 }
