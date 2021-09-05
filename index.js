@@ -19,6 +19,7 @@ dbConnection();
 
 // Routes
 app.use('/api/users', require('./routes/user'));
+app.use('/api/login', require('./routes/auth'));
 
 app.listen( process.env.PORT, () => {
   console.log('Server runnig on port ' + process.env.PORT );
