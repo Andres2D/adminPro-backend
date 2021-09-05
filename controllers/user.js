@@ -1,3 +1,4 @@
+const User = require('../models/user');
 
 const getUsers = (req, res) => {
     res.json({
@@ -6,10 +7,17 @@ const getUsers = (req, res) => {
     });
 }
 
-const createUsers = (req, res) => {
+const createUsers = async (req, res) => {
+
+    const { email, password, name} = req.body;
+
+    const user = new User(req.body);
+
+    await user.save();
+
     res.json({
         ok: true,
-        msg: 'Creating user'
+        user
     });
 }
 
