@@ -22,7 +22,7 @@ router.post('/',
     [
         validateJWT,
         check('name', 'The doctor`s name is required').notEmpty(),
-        check('hospital', 'The hospital id is required').notEmpty(),
+        check('hospital', 'Invalid id hospital').isMongoId(),
         validateFields
     ], 
     createDoctors
