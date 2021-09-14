@@ -23,6 +23,7 @@ app.use('/api/hospitals', require('./routes/hospital'));
 app.use('/api/doctors', require('./routes/doctor'));
 app.use('/api/login', require('./routes/auth'));
 app.use('/api/all', require('./routes/searchs'));
+app.use('/api/upload', require('./routes/uploads'));
 
 app.listen( process.env.PORT, () => {
   console.log('Server runnig on port ' + process.env.PORT );
