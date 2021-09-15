@@ -28,10 +28,14 @@ router.post('/',
 );
 
 router.put( '/:id', 
-    [],
+    [
+        validateJWT,
+        check('name', 'The hospital`s name is required').notEmpty(),
+        validateFields
+    ],
     updateHospitals
 );
 
-router.delete( '/:id', deleteHospitals );
+router.delete( '/:id', validateJWT, deleteHospitals );
 
 module.exports = router;
