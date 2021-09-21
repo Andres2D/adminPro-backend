@@ -23,7 +23,7 @@ const login = async(req, res = response) => {
         if(!validPassword) {
             res.status(400).json({
                 ok: false,
-                msg: 'Invalida password'
+                msg: 'Invalid password'
             });
         }
 
@@ -35,6 +35,7 @@ const login = async(req, res = response) => {
             token
         })
     } catch(ex) {
+        console.log('in');
         res.status(500).json({
             ok: false,
             msg: 'Unexpected error'
@@ -82,13 +83,15 @@ const googleSignIn = async(req, res = response) => {
 
 const renewToken = async(req, res = response) => {
     const _id = req._id;
+    const user = await User.findById(_id);
 
     // Generate Token - JWT
     const token = await generateJWT(_id);
 
     res.json({
         ok: true,
-        token
+        token,
+        user
     })
 }
 
