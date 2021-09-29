@@ -10,7 +10,8 @@ const {
     getDoctors,
     createDoctors,
     updateDoctors,
-    deleteDoctors
+    deleteDoctors,
+    getDoctor
 } = require('../controllers/doctor');
 const { validateFields } = require('../middlewares/validate-fields');
 
@@ -39,5 +40,7 @@ router.put( '/:id',
 );
 
 router.delete( '/:id', validateJWT, deleteDoctors );
+
+router.get('/:id', validateJWT, getDoctor);
 
 module.exports = router;

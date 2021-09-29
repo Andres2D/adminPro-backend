@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response, json } = require('express');
 const Doctor = require('../models/doctor');
 
 const getDoctors = async(req, res = response) => {
@@ -10,6 +10,27 @@ const getDoctors = async(req, res = response) => {
         doctors
     })
 }
+
+const getDoctor = async(req, res = response) => {
+    const _id = req.params.id;
+    try {
+        const doctor = await Doctor.findById(_id)
+                                    .populate('user', 'name img')
+                                    .populate('hospital', 'name img');
+    
+        res.json({
+            ok: true,
+            doctor
+        });
+    } catch(ex) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Unexpected error'
+        })
+    }
+
+}
+
 
 const createDoctors = async(req, res = response) => {
     const _id = req._id;
@@ -95,5 +116,6 @@ module.exports = {
     getDoctors,
     createDoctors,
     updateDoctors,
-    deleteDoctors
+    deleteDoctors,
+    getDoctor
 }
