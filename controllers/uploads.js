@@ -43,7 +43,6 @@ const fileUpload = (req, res = response) => {
 
     // Path to save the image
     const path = `./uploads/${type}/${fileName}`;
-    // Move the image
     file.mv(path, function(err) {
         if (err) {
             console.log(err);
@@ -70,7 +69,6 @@ const returnImage = (req, res = response) => {
 
     const pathImage = path.join( __dirname, `../uploads/${type}/${image}` );
 
-    // Default image
     if(fs.existsSync(pathImage)) {
         res.sendFile(pathImage);
     }else{
