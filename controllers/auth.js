@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response, json } = require('express');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/jwt');
@@ -40,7 +40,7 @@ const login = async(req, res = response) => {
         console.log('in');
         res.status(500).json({
             ok: false,
-            msg: 'Unexpected error'
+            msg: `Unexpected error [${email}, ${password}]`
         })
     }
 }
@@ -86,17 +86,25 @@ const googleSignIn = async(req, res = response) => {
 
 const renewToken = async(req, res = response) => {
     const _id = req._id;
-    const user = await User.findById(_id);
 
-    // Generate Token - JWT
-    const token = await generateJWT(_id);
+    try {
+        const user = await User.findById(_id);
 
-    res.json({
-        ok: true,
-        token,
-        user,
-        menu: getMenuFrontend(user.role)
-    })
+        // Generate Token - JWT
+        const token = await generateJWT(_id);
+    
+        res.json({
+            ok: true,
+            token,
+            user,
+            menu: getMenuFrontend(user.role)
+        })
+    }catch(err) {
+        res.status(500).json({
+            ok: false,
+            msg: `Unexpected error`
+        })
+    }
 }
 
 module.exports = {
